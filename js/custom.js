@@ -222,3 +222,69 @@ $('.dropdown-menu li').on('click', function() {
   var getValue = $(this).text();
   $('.dropdown-select').text(getValue);
 });
+
+
+$('input, select').focus(function(){
+    console.log('There')
+    $(this).next( "span.arrow" ).addClass( "rotate" );  
+});
+$('input, select').focusout(function(){
+    console.log('There')
+    $(this).next( "span.arrow" ).removeClass( "rotate" );  
+});
+
+$('input, select').keyup(function(){
+    $(this).next('span.error').hide();
+});
+
+
+
+
+
+$('#media').carousel({
+    pause: true,
+    interval: false,
+  });
+
+
+
+
+
+
+// deep link url for flights
+
+$( "#flightSubmit a.findBtn" ).on('click',function() {
+            var from = $('#startPoint input').val().split("-");
+            var to = $('#fromPoint input').val().split("-");
+            var adult = $( "#adult_r option:selected" ).val();
+            var child = $( "#child_r option:selected" ).val();
+            var infant = $( "#infant_r option:selected" ).val();
+            var cabin = $( "#cabin_r option:selected" ).val();
+
+            var oneWayDepart = '26-Feb-2019';
+
+
+            var towWayDepart = '27-Feb-2019';
+
+
+            if(from == '' || to == ''){
+                $('#startPoint input').after('<span class="error">Please select the origin</span>');
+                $('#fromPoint input').after('<span class="error">Please select the departure</span>');
+                return false;
+            }
+
+            if(towWayDepart == ''){
+                var link = "https://www.skybooker.com/search-flights/?from=" + from[1] + "&to=" + to[1] + "&depart=" + oneWayDepart + "&adult=" + adult + "&child=" + child + "&infant=" + infant + "&cabin=" + cabin
+
+            }else{
+                var link = "https://www.skybooker.com/search-flights/?from=" + from[1] + "&to=" + to[1] + "&depart=" + oneWayDepart + "," + towWayDepart + "&adult=" + adult + "&child=" + child + "&infant=" + infant + "&cabin=" + cabin
+            }
+
+
+            // https://bookingbuddy.goway.com/flights/?from=PAR,HYD&to=HYD,DEL&depart=14-Feb-2019,19-Feb-2019,20-Feb-2019,21-Feb-2019&adult=1&child=0&infant=0&cabin=economy&flexible=false
+
+            $(location).attr('href', link);
+});
+
+
+
